@@ -1,24 +1,17 @@
 <?php
 
-// fetch data
-$subject_rows = $pdo->query('SELECT * FROM subjects')->fetchAll(PDO::FETCH_ASSOC);
+require_once 'header.php';
 
-// on form submit
-if (isset($_POST['id']) && $_POST['id'] == 'subject') {
-    // store data
-    $stmt = $pdo->prepare('INSERT INTO subjects(name,type) VALUES(?,?)');
-    $stmt->execute([$_POST['name'], $_POST['type']]);
+require_once 'database.php';
 
-    unset($_POST['name']);
-    unset($_POST['type']);
-    unset($_POST['id']);
-}
+require_once 'controllers/subjects_controller.php';
 
 ?>
 
+<div class="container">
 <div class="pt-3">
     <h4>Subjects</h4>
-    <form class="form-inline mb-2" action="/" method="POST">
+    <form class="form-inline mb-2" action="" method="POST">
         <input type="hidden" name="id" value="subject">
         <div class="input-group">
             <input type="text" class="form-control mr-2" placeholder="Name" name="name">
@@ -33,7 +26,7 @@ if (isset($_POST['id']) && $_POST['id'] == 'subject') {
         <button type="submit" class="btn btn-primary">Add</button>
     </form>
 
-    <div style="height:50vh;overflow:auto">
+    <div style="height:80vh;overflow:auto">
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -54,4 +47,4 @@ if (isset($_POST['id']) && $_POST['id'] == 'subject') {
         </table>
     </div>
 </div>
-
+<?php include 'footer.php'; ?>
