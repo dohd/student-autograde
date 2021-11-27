@@ -1,13 +1,9 @@
 <?php 
 
-require_once 'header.php';
+include 'header.php';
+include 'nav-menu.php';
 
-require_once 'helpers.php';
-require_once 'database.php';
-
-require_once 'controllers/student_subjects_controller.php';
-require_once 'controllers/subjects_controller.php';
-require_once 'controllers/students_controller.php';
+require 'controllers/student_subjects_controller.php';
 
 ?>
 
@@ -17,9 +13,9 @@ require_once 'controllers/students_controller.php';
         <form class="form-inline mb-2" action="/student_subjects.php" method="POST">
             <input type="hidden" name="id" value="student_subject">
             <div class="input-group">
-                <select name="student_id" class="form-control mr-2">
-                    <option>-- select student --</option>
-                    <?php foreach($student_rows as $row): ?>
+                <select name="student_id" class="form-control mr-2" required>
+                    <option value="">-- select student --</option>
+                    <?php foreach($student_options as $row): ?>
                         <option value="<?php echo $row['id'] ?>">
                             <?php echo $row['name'] ?>
                         </option>
@@ -27,8 +23,8 @@ require_once 'controllers/students_controller.php';
                 </select>
             </div>
             <div class="input-group">
-                <select name="subject_id[]" class="form-control mr-2 multiselect" multiple>
-                    <?php foreach($subject_rows as $row): ?>
+                <select name="subject_id[]" class="form-control mr-2 multiselect" required multiple>
+                    <?php foreach($subject_options as $row): ?>
                         <option value="<?php echo $row['id'] ?>">
                             <?php echo $row['name'] ?>
                         </option>
@@ -44,10 +40,21 @@ require_once 'controllers/students_controller.php';
                     <tr>
                         <th>#</th>
                         <th>Student</th>
-                        <th>Subjects</th>
+                        <th class="text-center">Subjects</th>
                     </tr>
                 </thead>
                 <tbody>
+                    <?php foreach ($student_subjects as $key => $value): ?>
+                        <tr>
+                            <td><?php echo $key+1 ?></td>
+                            <td><?php echo $value['name'] ?></td>
+                            <td>
+                                <?php foreach($value['subject'] as $subject): ?>
+                                    <?php echo $subject['name'] ?>,&nbsp;&nbsp;
+                                <?php endforeach; ?>
+                            </td>
+                        </tr> 
+                    <?php endforeach; ?>  
                 </tbody>
             </table>
         </div>
@@ -55,6 +62,6 @@ require_once 'controllers/students_controller.php';
 </div>
 
 <Script>
-    $('.multiselect').multiselect();
+    $('.multiselect').multiselect({nonSelectedText: 'Select subjects', inheritClass: true});
 </Script>
 <?php include 'footer.php'; ?>
