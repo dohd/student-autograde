@@ -1,6 +1,7 @@
 <?php 
 
-require_once 'header.php'; 
+include 'header.php';
+include 'nav-menu.php';
 
 ?>
 
