@@ -1,10 +1,9 @@
 <?php
 
-require_once 'header.php';
+include 'header.php';
+include 'nav-menu.php';
 
-require_once 'database.php';
-
-require_once 'controllers/subjects_controller.php';
+require 'controllers/subjects_controller.php';
 
 ?>
 
@@ -14,15 +13,8 @@ require_once 'controllers/subjects_controller.php';
     <form class="form-inline mb-2" action="" method="POST">
         <input type="hidden" name="id" value="subject">
         <div class="input-group">
-            <input type="text" class="form-control mr-2" placeholder="Name" name="name">
-        </div>
-        <div class="input-group">
-            <select name="type" class="form-control mr-2">
-                <option>-- select type --</option>
-                <option value="0">optional</option>
-                <option value="1">required</option>
-            </select>
-        </div>
+            <input type="text" class="form-control mr-2" placeholder="Name" name="name" required>
+        </div>        
         <button type="submit" class="btn btn-primary">Add</button>
     </form>
 
@@ -32,15 +24,13 @@ require_once 'controllers/subjects_controller.php';
                 <tr>
                     <th>#</th>
                     <th>Name</th>
-                    <th>Type</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($subject_rows as $key => $value): ?>
                     <tr>
-                        <td><?php echo $key+1 ?></td>
+                        <td scope="row"><?php echo $key+1 ?></td>
                         <td><?php echo $value['name'] ?></td>
-                        <td><?php echo $value['type']? 'required':'optional' ?></td>
                     </tr> 
                 <?php endforeach; ?>           
             </tbody>
