@@ -1,10 +1,9 @@
 <?php 
 
-require_once 'header.php';
+include 'header.php';
+include 'nav-menu.php';
 
-require_once 'database.php';
-
-require_once 'controllers/students_controller.php';
+require 'controllers/students_controller.php';
 
 ?>
 
@@ -14,7 +13,7 @@ require_once 'controllers/students_controller.php';
         <form class="form-inline mb-2" action="" method="POST">
             <input type="hidden" name="id" value="student">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Name" name="name">
+                <input type="text" class="form-control" placeholder="Name" name="name" required>
             </div>
             <br>
             <button type="submit" class="btn btn-primary ml-2">Add</button>
