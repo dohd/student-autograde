@@ -19,10 +19,13 @@
         <form class="form-inline mb-2" action="" method="POST">
             <input type="hidden" name="id" value="student">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Name" name="name" required>
+                <input type="text" class="form-control mr-2" placeholder="Reg/No." name="reg_no" required>
+            </div>
+            <div class="input-group">
+                <input type="text" class="form-control mr-2" placeholder="Name" name="name" required>
             </div>
             <br>
-            <button type="submit" class="btn btn-primary ml-2">Add</button>
+            <button type="submit" class="btn btn-primary">Add</button>
         </form>
 
         <div style="height:80vh;overflow:auto">
@@ -30,12 +33,14 @@
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>Reg/No</th>
                         <th>Name</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($student_rows as $key => $value): ?>
                         <tr>
+                            <td scope="row"><?php echo $key+1 ?></td>
                             <td><?php echo $key+1 ?></td>
                             <td><?php echo $value['name'] ?></td>
                         </tr> 
