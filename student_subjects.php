@@ -14,7 +14,7 @@
 <?php include 'header.php' ?>
 <div class="container">
     <?php require 'controllers/student_subjects_controller.php'; ?>    
-    <div class="pt-5">
+    <div class="pt-3">
         <h4>Student Subjects</h4>
         <form class="form-inline mb-2" action="/student_subjects.php" method="POST">
             <input type="hidden" name="id" value="student_subject">

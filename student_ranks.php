@@ -14,7 +14,7 @@
 <?php include 'header.php' ?>
 <div class="container">
     <?php require 'controllers/student_subjects_controller.php'; ?>
-    <div class="pt-5">
+    <div class="pt-3">
         <h4>Student Ranks</h4>
         <div style="height:80vh;overflow:auto">
             <table class="table table-striped">
