@@ -19,6 +19,9 @@
         <form class="form-inline mb-2" action="" method="POST">
             <input type="hidden" name="id" value="subject">
             <div class="input-group">
+                <input type="number" class="form-control mr-2" placeholder="Code" name="code" required>
+            </div>  
+            <div class="input-group">
                 <input type="text" class="form-control mr-2" placeholder="Name" name="name" required>
             </div>        
             <button type="submit" class="btn btn-primary">Add</button>
@@ -29,6 +32,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>Code</th>
                         <th>Name</th>
                     </tr>
                 </thead>
@@ -36,6 +40,7 @@
                     <?php foreach ($subject_rows as $key => $value): ?>
                         <tr>
                             <td scope="row"><?php echo $key+1 ?></td>
+                            <td><?php echo $key+1 ?></td>
                             <td><?php echo $value['name'] ?></td>
                         </tr> 
                     <?php endforeach; ?>           
