@@ -4,11 +4,11 @@
 if (isset($_POST['id']) && $_POST['id'] ==  'subject') {
     unset($_POST['id']);
 
-    $stmt = $pdo->prepare('INSERT INTO subjects(name,type) VALUES(?,?)');
-    $stmt->execute([$_POST['name'], $_POST['type']]);
-
-    $sql = 'INSERT INTO subjects(name,type) VALUES(?,?)';
-    query($sql, array($_POST['name'], $_POST['type']));
+    try {
+        query('INSERT INTO subjects(code,name) VALUES(?,?)', array($_POST['code'], $_POST['name']));
+    } catch (\Throwable $th) {
+        error_log($th->getMessage());
+    }
 
     // redirect
     header('Location: /subjects.php');
