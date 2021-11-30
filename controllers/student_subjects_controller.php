@@ -3,9 +3,6 @@
 require_once 'helpers.php';
 require_once 'services/subject_conditions_service.php';
 
-/**
- * Form handler
- */
 if (isset($_POST['id']) && $_POST['id'] ==  'student_subject') {
     unset($_POST['id']);
     $student_id = $_POST['student_id'];
@@ -15,9 +12,7 @@ if (isset($_POST['id']) && $_POST['id'] ==  'student_subject') {
     $placeholder = str_repeat('?,', count($subject_ids) - 1) . '?';
     $sql = 'SELECT * FROM subjects WHERE id IN ('.$placeholder.')';
     // fetch all subjects with given ids
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute($subject_ids);
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $results = query($sql, $subject_ids);
 
     // extract subject names
     $subjects = array();
@@ -46,42 +41,40 @@ if (isset($_POST['id']) && $_POST['id'] ==  'student_subject') {
 
     // save valid subjects with corresponsing student
     if (isset($res)) {
-        foreach ($results as $result) {
-            $stmt = $pdo->prepare('INSERT INTO student_subjects(student_id, subject_id) VALUES(?,?)');
-            $stmt->execute([$student_id, $result['id']]);
+        try {
+            foreach ($results as $result) {
+                query('INSERT INTO student_subjects(student_id, subject_id) VALUES(?,?)', array($student_id, $result['id']));
+            }
+        } catch (\Throwable $th) {
+            error_log($th->getMessage());
         }
+
         // redirect
         header('Location: /student_subjects.php');
-        exit();    
+        exit();
     }
 }
 
 /**
  * Fetch data
  */
-
- // get from session
 $student_options = $_SESSION['students'];
 $subject_options = $_SESSION['subjects'];
 
 // fetch student rows
 $sql = '
-SELECT std.id, std.name FROM students std 
+SELECT std.id, std.name, std.reg_no FROM students std 
 INNER JOIN student_subjects ss ON ss.student_id = std.id
 GROUP BY std.id
 ';
-$stmt = $pdo->prepare($sql);
-$stmt->execute();
-$student_rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$student_rows = query($sql);
 
 // fetch subject rows
 $sql = '
-SELECT subj.id, subj.name, ss.student_id FROM subjects subj
+SELECT subj.id, subj.name, subj.code, ss.student_id FROM subjects subj
 INNER JOIN student_subjects ss ON ss.subject_id = subj.id
 ';
-$stmt = $pdo->prepare($sql);
-$stmt->execute();
-$subject_rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$subject_rows = query($sql);
 
 // associate each student with corresponding subjects
 $student_subjects = array();
