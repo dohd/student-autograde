@@ -16,7 +16,7 @@
     <?php require 'controllers/student_subjects_controller.php'; ?>    
     <div class="pt-3">
         <h4>Student Subjects</h4>
-        <form class="form-inline mb-2" action="/student_subjects.php" method="POST">
+        <form class="form-inline mb-2" action="" method="POST">
             <input type="hidden" name="id" value="student_subject">
             <div class="input-group">
                 <select name="student_id" class="form-control mr-2" required>
@@ -44,7 +44,7 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th>Reg/No</th>
                         <th>Student</th>
                         <th class="text-center">Subjects</th>
                     </tr>
@@ -52,7 +52,7 @@
                 <tbody>
                     <?php foreach ($student_subjects as $key => $value): ?>
                         <tr>
-                            <td><?php echo $key+1 ?></td>
+                            <td><?php echo $value['reg_no'] ?></td>
                             <td><?php echo $value['name'] ?></td>
                             <td>
                                 <?php foreach($value['subject'] as $subject): ?>

@@ -32,7 +32,6 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>#</th>
                         <th>Reg/No</th>
                         <th>Name</th>
                     </tr>
@@ -40,8 +39,7 @@
                 <tbody>
                     <?php foreach ($student_rows as $key => $value): ?>
                         <tr>
-                            <td scope="row"><?php echo $key+1 ?></td>
-                            <td><?php echo $key+1 ?></td>
+                            <td><?php echo $value['reg_no'] ?></td>
                             <td><?php echo $value['name'] ?></td>
                         </tr> 
                     <?php endforeach; ?>           
