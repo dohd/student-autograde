@@ -22,13 +22,13 @@ if (isset($_POST['id']) && $_POST['id'] ==  'student_subject') {
     // extract subject names
     $subjects = array();
     foreach($results as $result) {
-        $subjects[] = $result['name'];
+        $subjects[] = $result['code'];
     }
 
     // conditional subjects
-    $mains = array('maths', 'english', 'kiswahili');
-    $sciences = array('chemistry', 'biology', 'physics');
-    $humanities = array('geography','cre','history');
+    $mains = array(121, 101, 102);
+    $sciences = array(233, 231, 232);
+    $humanities = array(312, 313, 311);
 
     switch (count($subjects)) {
         case 7:
