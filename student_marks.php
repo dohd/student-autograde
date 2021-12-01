@@ -21,8 +21,8 @@
     <?php require 'controllers/student_marks_controller.php'; ?>
     <div class="pt-3">
         <h4>Student Marks</h4>
-        <form class="form mb-2" action="/student_marks" method="POST">
-            <input type="hidden" name="id" value="student_marks">
+        <form class="form mb-2" action="" method="POST">
+            <input type="hidden" name="id" value="student_score">
             <div class="row pb-1">
                 <div class="col-3">
                     <div class="input-group">
@@ -77,7 +77,7 @@
         return `
             <tr>
                 <td><input class="form-control" value="${v.name}" readonly></td>
-                <td><input type="number" class="form-control" name="score[]" required></td>
+                <td><input type="number" class="form-control" name="score[]"></td>
                 <input type="hidden" name="subject_id[]" value="${v.id}">
             </tr>
         `;
