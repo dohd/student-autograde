@@ -3,11 +3,7 @@
 require_once 'helpers.php';
 require_once 'services/subject_conditions_service.php';
 
-if (isset($_POST['id']) && $_POST['id'] ==  'student_subject') {
-    unset($_POST['id']);
-    $student_id = $_POST['student_id'];
-    $subject_ids = $_POST['subject_id'];
-    
+function student_subject_formhandler($student_id, $subject_ids=[]) {
     // db query
     $placeholder = str_repeat('?,', count($subject_ids) - 1) . '?';
     $sql = 'SELECT * FROM subjects WHERE id IN ('.$placeholder.')';
@@ -53,6 +49,10 @@ if (isset($_POST['id']) && $_POST['id'] ==  'student_subject') {
         header('Location: /student_subjects.php');
         exit();
     }
+}
+if (isset($_POST['id']) && $_POST['id'] ==  'student_subject') {
+    unset($_POST['id']);
+    student_subject_formhandler($_POST['student_id'], $_POST['subject_id']);   
 }
 
 /**
