@@ -59,7 +59,7 @@
                             <th><?php echo $row['name'] ?></th>
                         <?php endforeach; ?>
                         <th>Mean Grade</th>
-                        <th>Pos</th>
+                        <th>Position</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -68,12 +68,15 @@
                             <td><?php echo $key+1 ?></td>
                             <td><?php echo $student['name'] ?></td>                            
                             <?php foreach ($subject_rows as $subject): ?>
-                                <td>
-                                    <?php foreach ($student['scores'] as $score_obj): ?>
-                                        <?php if ($subject['code'] == $score_obj['code']): ?>
-                                            <?php echo $score_obj['score'] .' '. $score_obj['grade']; ?>
-                                        <?php endif; ?>
-                                    <?php endforeach; ?>
+                                <td style="min-width: 80px;">
+                                    <?php 
+                                        foreach ($student['scores'] as $score_obj) {
+                                            if ($subject['code'] == $score_obj['code']) {
+                                                if (!empty($score_obj['score'])) echo $score_obj['score'] .' '. $score_obj['grade'];
+                                                else echo 'XX'; 
+                                            }
+                                        }                                    
+                                    ?>              
                                 </td>
                             <?php endforeach; ?>
                             <td><?php echo $student['avg_points'] .' '.$student['avg_grade'] ?></td>
