@@ -13,21 +13,21 @@
             padding-right: 5pt;
         } 
     </style>
-    <title>Student | Marks</title>
+    <title>Student | Ranks</title>
 </head>
 <body>
 <?php include 'header.php' ?>
 <div class="container">
-    <?php require 'controllers/student_marks_controller.php'; ?>
+    <?php require 'controllers/rank_controller.php'; ?>
     <div class="pt-3">
-        <h4>Student Marks</h4>
+        <h4>Student Ranks</h4>
         <form class="form mb-2" action="" method="POST">
-            <input type="hidden" name="id" value="student_score">
+            <input type="hidden" name="id" value="rank">
             <div class="row pb-1">
                 <div class="col-3">
                     <div class="input-group">
                         <select name="student_id" class="form-control" id="student-id" required>
-                            <option>-- select student --</option>
+                            <option value="0">-- select student --</option>
                             <?php foreach($student_subjects as $student): ?>
                                 <option value="<?php echo $student['id'] ?>">
                                     <?php echo $student['name'] ?>
@@ -36,7 +36,7 @@
                         </select>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary d-inline">Save</button>
+                <button type="submit" class="btn btn-primary d-inline">Save scores</button>
             </div>
             <table id="score-table">
                 <thead>
@@ -50,7 +50,7 @@
         </form>
 
         <div style="height:80vh;overflow:auto">
-            <table class="table table-striped">
+            <table class="table table-striped" id="rank">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -58,9 +58,28 @@
                         <?php foreach ($subject_rows as $row): ?>
                             <th><?php echo $row['name'] ?></th>
                         <?php endforeach; ?>
+                        <th>Mean Grade</th>
+                        <th>Pos</th>
                     </tr>
                 </thead>
                 <tbody>
+                    <?php foreach ($student_scores as $key => $student): ?>
+                        <tr>
+                            <td><?php echo $key+1 ?></td>
+                            <td><?php echo $student['name'] ?></td>                            
+                            <?php foreach ($subject_rows as $subject): ?>
+                                <td>
+                                    <?php foreach ($student['scores'] as $score_obj): ?>
+                                        <?php if ($subject['code'] == $score_obj['code']): ?>
+                                            <?php echo $score_obj['score'] .' '. $score_obj['grade']; ?>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </td>
+                            <?php endforeach; ?>
+                            <td><?php echo $student['avg_points'] .' '.$student['avg_grade'] ?></td>
+                            <td><?php echo $student['position'] ?></td>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
@@ -101,6 +120,13 @@
         }        
         $('#score-table tbody').html('');
         subjects.forEach((v) => $('#score-table tbody').append(scoreRow(v)));
+    });
+
+    $('#rank tbody tr').each(function() {
+        $(this).find('td').each(function() {
+            // replace empty td with underscore
+            if ($(this).text().trim() == '') $(this).text('_');
+        });
     });
 </script>
 </html>
