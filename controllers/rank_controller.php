@@ -57,9 +57,11 @@ foreach ($students as $student_row) {
     $ttl_score = 0;
     foreach ($subject_scores as $score_row) {
         if ($student_row['id'] == $score_row['student_id']) {
-            $score_row = array_merge($score_row, rank_score($score_row['score']));
-            $ttl_points += $score_row['point'];
-            $ttl_score += $score_row['score'];
+            if (!empty($score_row['score'])) {
+                $score_row = array_merge($score_row, rank_score($score_row['score']));
+                $ttl_points += $score_row['point'];
+                $ttl_score += $score_row['score'];    
+            }
             $student['scores'][] = $score_row;
         }
     }
