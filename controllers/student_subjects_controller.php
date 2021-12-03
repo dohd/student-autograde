@@ -35,20 +35,19 @@ function student_subject_formhandler($student_id, $subject_ids=[]) {
             error_alert('At least 7 or at most 9 subjects required!');
     }
 
-    // save valid subjects with corresponsing student
-    if (isset($res)) {
-        try {
-            foreach ($results as $result) {
-                query('INSERT INTO student_subjects(student_id, subject_id) VALUES(?,?)', array($student_id, $result['id']));
-            }
-        } catch (\Throwable $th) {
-            error_log($th->getMessage());
+    if (!isset($res)) return;
+    try {
+        // save valid subjects with corresponsing student
+        foreach ($results as $result) {
+            query('INSERT INTO student_subjects(student_id, subject_id) VALUES(?,?)', array($student_id, $result['id']));
         }
-
-        // redirect
-        header('Location: /student_subjects.php');
-        exit();
+    } catch (\Throwable $th) {
+        error_log($th->getMessage());
     }
+
+    // redirect
+    header('Location: /student_subjects.php');
+    exit();
 }
 if (isset($_POST['id']) && $_POST['id'] ==  'student_subject') {
     unset($_POST['id']);
