@@ -5,7 +5,7 @@ function rank_score($score)
     $v = (int) $score;
     $rank = array();
     switch (true) {
-        case ($v >= 80):
+        case ($v > 79 && $v <= 100):
             $rank['point'] = 12;
             $rank['grade'] = 'A';
             break;
@@ -54,7 +54,7 @@ function rank_score($score)
             $rank['grade'] = 'E';
             break; 
         default:
-            throw new Exception('Value out of range!');
+            return error_alert('Value out of range!');
     }
     
     return $rank;
