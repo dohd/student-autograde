@@ -20,8 +20,7 @@
                 <li class="nav-item"><a class="nav-link" href="students.php">Students</a></li>
                 <li class="nav-item"><a class="nav-link" href="subjects.php">Subjects</a></li>
                 <li class="nav-item"><a class="nav-link" href="student_subjects.php">Student Subjects</a></li>
-                <li class="nav-item"><a class="nav-link" href="student_marks.php">Student Marks</a></li>
-                <li class="nav-item"><a class="nav-link" href="student_ranks.php">Student Ranks</a></li>
+                <li class="nav-item"><a class="nav-link" href="rank.php">Rank</a></li>
             </ul>
         </div>
     </div>
