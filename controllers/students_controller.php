@@ -16,6 +16,5 @@ if (isset($_POST['id']) && $_POST['id'] ==  'student') {
 
 // fetch student rows
 $student_rows = query('SELECT * FROM students');
-
 // store in session
 $_SESSION['students'] = $student_rows;

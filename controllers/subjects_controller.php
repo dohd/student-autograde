@@ -16,6 +16,5 @@ if (isset($_POST['id']) && $_POST['id'] ==  'subject') {
 }
 
 $subject_rows = query('SELECT * FROM subjects');
-
 // store in session
 $_SESSION['subjects'] = $subject_rows;

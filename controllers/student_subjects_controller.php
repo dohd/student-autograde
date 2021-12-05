@@ -33,9 +33,9 @@ function student_subject_formhandler($student_id, $subject_ids=[]) {
             break;
         default:
             error_alert('At least 7 or at most 9 subjects required!');
+            return;
     }
-
-    if (!isset($res)) return;
+    
     try {
         // save valid subjects with corresponsing student
         foreach ($results as $result) {

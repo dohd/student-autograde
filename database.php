@@ -9,11 +9,8 @@ function query($sql='', $params=[])
     global $pdo;
 
     $stmt = $pdo->prepare($sql);
-    if ($params) {
-        $stmt->execute($params);
-    } else {
-        $stmt->execute();
-    }
+    if ($params) $stmt->execute($params);
+    else $stmt->execute();
     
     if (stripos($sql, 'SELECT') === false) return;    
     return $stmt->fetchAll(PDO::FETCH_ASSOC);

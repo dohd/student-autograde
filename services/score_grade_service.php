@@ -3,59 +3,34 @@
 /** Grade each subject score */
 function score_grade($v)
 {
-    $result = array();
     switch (true) {
         case ($v > 79 && $v < 101):
-            $result['point'] = 12;
-            $result['grade'] = 'A';
-            break;
+            return array('point' => 12, 'grade' => 'A');
         case ($v > 74 && $v < 80):
-            $result['point'] = 11;
-            $result['grade'] = 'A-';
-            break;
+            return array('point' => 11, 'grade' => 'A-');
         case ($v > 69 && $v < 75):
-            $result['point'] = 10;
-            $result['grade'] = 'B+';
-            break;
+            return array('point' => 10, 'grade' => 'B+');
         case ($v > 64 && $v < 70):
-            $result['point'] = 9;
-            $result['grade'] = 'B';
-            break;
+            return array('point' => 9, 'grade' => 'B');
         case ($v > 59 && $v < 65):
-            $result['point'] = 8;
-            $result['grade'] = 'B-';
-            break;
+            return array('point' => 8, 'grade' => 'B-');
         case ($v > 54 && $v < 60):
-            $result['point'] = 7;
-            $result['grade'] = 'C+';
-            break;
+            return array('point' => 7, 'grade' => 'C+');
         case ($v > 49 && $v < 55):
-            $result['point'] = 6;
-            $result['grade'] = 'C';
-            break;                    
+            return array('point' => 6, 'grade' => 'C');
         case ($v > 44 && $v < 50):
-            $result['point'] = 5;
-            $result['grade'] = 'C-';
-            break;                   
+            return array('point' => 5, 'grade' => 'C-');
         case ($v > 39 && $v < 45):
-            $result['point'] = 4;
-            $result['grade'] = 'D+';
-            break;   
+            return array('point' => 4, 'grade' => 'D+');
         case ($v > 34 && $v < 40):
-            $result['point'] = 3;
-            $result['grade'] = 'D';
-            break;   
+            return array('point' => 3, 'grade' => 'D');
         case ($v > 29 && $v < 35):
-            $result['point'] = 2;
-            $result['grade'] = 'D-';
-            break;
+            return array('point' => 2, 'grade' => 'D-');
         case ($v > 0 && $v < 30):
-            $result['point'] = 1;
-            $result['grade'] = 'E';
-            break; 
-    }
-    
-    return $result;
+            return array('point' => 1, 'grade' => 'E');
+        default:
+            return array();
+    }   
 }
 
 /** Grade sum of subject scores */
