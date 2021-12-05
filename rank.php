@@ -79,7 +79,7 @@
                                     ?>              
                                 </td>
                             <?php endforeach; ?>
-                            <td><?php echo $student['avg_points'] .' '.$student['avg_grade'] ?></td>
+                            <td><?php echo $student['mean_points'] .' '.$student['mean_grade'] ?></td>
                             <td><?php echo $student['position'] ?></td>
                         </tr>
                     <?php endforeach; ?>
