@@ -23,13 +23,13 @@ function student_subject_formhandler($student_id, $subject_ids=[]) {
 
     switch (count($subjects)) {
         case 7:
-            $res = condition_for_seven($subjects, compact('mains','sciences','humanities'));
+            condition_for_seven($subjects, compact('mains','sciences','humanities'));
             break;
         case 8:
-            $res = condition_for_eight($subjects, compact('mains','sciences','humanities'));
+            condition_for_eight($subjects, compact('mains','sciences','humanities'));
             break;
         case 9:
-            $res = condition_for_nine($subjects, compact('mains','sciences','humanities'));
+            condition_for_nine($subjects, compact('mains','sciences','humanities'));
             break;
         default:
             error_alert('At least 7 or at most 9 subjects required!');
