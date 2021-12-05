@@ -1,7 +1,7 @@
 <?php
 
-/** permute strings in an array without repetition with sample of 2  */ 
-function permute_subjects($list=array(), $store=array())
+/** select pair values without repetition */ 
+function pair_combination($list=[], $store=[])
 {
     $l = count($list) - 1;
     for ($i = 0; $i < $l; $i++) {
@@ -13,7 +13,7 @@ function permute_subjects($list=array(), $store=array())
             array_shift($list);
             // if list size is greater than one, recurse
             if (count($list) > 1) {
-                return permute_subjects($list, $store);
+                return pair_combination($list, $store);
             }
         }
     }
@@ -32,7 +32,7 @@ function condition_for_seven($subjects=array(), $default=array())
     }
 
     // check if science pair exist in subjects and reduce subjects by 2
-    $science_pairs = permute_subjects($default['sciences']);
+    $science_pairs = pair_combination($default['sciences']);
     foreach ($science_pairs as $pair) {
         if (in_array($pair[0], $subjects) && in_array($pair[1], $subjects)) {
             unset($subjects[array_search($pair[0], $subjects)]);
