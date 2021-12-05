@@ -1,7 +1,7 @@
 <?php
 
 require_once 'helpers.php';
-require_once 'services/rank_score_service.php';
+require_once 'services/score_grade_service.php';
 
 function rank_formhandler($student_id, $subject_ids=[], $scores=[])
 {
@@ -53,37 +53,30 @@ $student_scores = array();
 foreach ($students as $student_row) {
     $student = $student_row;
     $student['scores'] = array();
-    $ttl_points = 0;
-    $ttl_score = 0;
     foreach ($subject_scores as $score_row) {
         if ($student_row['id'] == $score_row['student_id']) {
-            if (!empty($score_row['score'])) {
-                $score_row = array_merge($score_row, rank_score($score_row['score']));
-                $ttl_points += $score_row['point'];
-                $ttl_score += $score_row['score'];    
+            $score = $score_row['score'];
+            if (empty($score)) {
+                $student['scores'][] = $score_row;
+                continue;
             }
-            $student['scores'][] = $score_row;
+            $student['scores'][] = array_merge($score_row, score_grade((int) $score));
         }
     }
-
-    $n = count($student['scores']);
-    $avg_points = number_format(($ttl_points/$n), 4) ;
-    $avg_score = $ttl_score/$n;
-    $student['avg_points'] = $avg_points;
-    $student['avg_grade'] = rank_score($avg_score)['grade'];
-
+    $points = mean_points($student['scores']);
+    $student['mean_points'] = $points;
+    $student['mean_grade'] = mean_grade($points);
     $student_scores[] = $student;
 }
 
-// sort student scores by avg_points
-array_multisort(array_column($student_scores, 'avg_points'), SORT_DESC, $student_scores);
-// assign positions on sorted student scores
-foreach ($student_scores as $key => $student) {
+// sort student scores by mean_points and assign positions
+array_multisort(array_column($student_scores, 'mean_points'), SORT_DESC, $student_scores);
+foreach ($student_scores as $key => $value) {
     $student_scores[$key]['position'] = $key+1;
     if (!$key) continue;
-    $prev_points = $student_scores[$key-1]['avg_points'];
-    $curr_points = $student['avg_points'];
-    if ($prev_points == $curr_points) {
-        $student_scores[$key]['position'] = $key;
+    $prev_points = $student_scores[$key-1]['mean_points'];
+    $prev_pos = $student_scores[$key-1]['position'];
+    if ($prev_points == $value['mean_points']) {
+        $student_scores[$key]['position'] = $prev_pos;
     }
 }
