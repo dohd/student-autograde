@@ -33,7 +33,7 @@ function score_grade($v)
     }   
 }
 
-/** Grade sum of subject scores */
+/** Grade mean points */
 function mean_grade($v)
 {
     switch(true) {
