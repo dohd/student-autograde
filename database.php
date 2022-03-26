@@ -12,6 +12,7 @@ function query($sql='', $params=[])
     if ($params) $stmt->execute($params);
     else $stmt->execute();
     
-    if (stripos($sql, 'SELECT') === false) return;    
+    if (stripos($sql, 'SELECT') === false) return;
+        
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
