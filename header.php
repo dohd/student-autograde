@@ -17,6 +17,7 @@
     <div class="container">
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" href="streams.php">Streams</a></li>
                 <li class="nav-item"><a class="nav-link" href="students.php">Students</a></li>
                 <li class="nav-item"><a class="nav-link" href="subjects.php">Subjects</a></li>
                 <li class="nav-item"><a class="nav-link" href="student_subjects.php">Student Subjects</a></li>
