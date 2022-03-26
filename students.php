@@ -24,6 +24,14 @@
             <div class="input-group">
                 <input type="text" class="form-control mr-2" placeholder="Name" name="name" required>
             </div>
+            <div class="input-group">
+                <select name="stream_id" id="" class="form-control mr-2" required>
+                    <option value="">-- Select stream --</option>
+                    <?php foreach ($_SESSION['streams'] as $stream): ?>
+                        <option value="<?php echo $stream['id'] ?>"><?php echo $stream['name'] ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
             <br>
             <button type="submit" class="btn btn-primary">Add</button>
         </form>
@@ -34,6 +42,7 @@
                     <tr>
                         <th>Reg/No</th>
                         <th>Name</th>
+                        <th>Stream</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,6 +50,14 @@
                         <tr>
                             <td><?php echo $value['reg_no'] ?></td>
                             <td><?php echo $value['name'] ?></td>
+                            <td>
+                                <?php 
+                                    foreach($_SESSION['streams'] as $stream) {
+                                        if ($stream['id'] == $value['stream_id'])
+                                        echo $stream['name'];
+                                    }
+                                ?>
+                            </td>
                         </tr> 
                     <?php endforeach; ?>           
                 </tbody>
