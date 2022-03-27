@@ -1,13 +1,13 @@
 <?php
 
-function browser_log(...$args)
+function browserlog(...$args)
 {
     foreach ($args as $arg) {
         echo '<script>console.log('.json_encode($arg).')</script>';
     }
 }
 
-function browser_alert($msg='')
+function browseralert($msg='')
 {
     echo '<script>alert('.json_encode($msg).')</script>';
 }
