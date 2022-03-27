@@ -60,12 +60,14 @@
                         <?php endforeach; ?>
                         <th>Mean Grade</th>
                         <th>Position</th>
+                        <th>Stream</th>
+                        <th>Stream Position</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($student_scores as $key => $student): ?>
+                    <?php foreach ($student_scores as $i => $student): ?>
                         <tr>
-                            <td><?php echo $key+1 ?></td>
+                            <td><?php echo $i+1 ?></td>
                             <td><?php echo $student['name'] ?></td>                            
                             <?php foreach ($subject_rows as $subject): ?>
                                 <td style="min-width: 80px;">
@@ -81,6 +83,12 @@
                             <?php endforeach; ?>
                             <td><?php echo $student['mean_points'] .' '.$student['mean_grade'] ?></td>
                             <td><?php echo $student['position'] ?></td>
+                            <?php foreach ($stream_student_scores as $stream_student): ?>
+                                <?php if ($stream_student['id'] == $student['id']): ?>
+                                    <td><?php echo $stream_student['stream_name'] ?></td>
+                                    <td><?php echo $stream_student['position'] ?></td>
+                                <?php endif; ?>                              
+                            <?php endforeach; ?>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -92,8 +100,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script>
-    <?php $ss_list = json_encode($student_subjects); ?>
-    const student_subjects = <?php echo $ss_list ?>;
+    <?php $subjects = json_encode($student_subjects); ?>
+    const student_subjects = <?php echo $subjects ?>;
 
     function scoreRow(v) {
         return `
@@ -107,14 +115,12 @@
 
     $('#score-table').css('display', 'none');
     $('#student-id').change(function() {
-        if (Number($(this).val())) {
+        if ($(this).val()*1) {
             $('#score-table').css('display', 'block');
-        } else {
-            $('#score-table').css('display', 'none');
-        }
-
+        } else $('#score-table').css('display', 'none');
+            
         let subjects;
-        for (let i=0; i<student_subjects.length; i++) {
+        for (let i = 0; i < student_subjects.length; i++) {
             const student_id = student_subjects[i]['id'];
             if (student_id === $(this).val()) {
                 subjects = student_subjects[i]['subject'];
@@ -122,12 +128,12 @@
             }
         }        
         $('#score-table tbody').html('');
-        subjects.forEach((v) => $('#score-table tbody').append(scoreRow(v)));
+        subjects.forEach(v => $('#score-table tbody').append(scoreRow(v)));
     });
 
+    // replace empty td with underscore
     $('#rank tbody tr').each(function() {
         $(this).find('td').each(function() {
-            // replace empty td with underscore
             if ($(this).text().trim() == '') $(this).text('_');
         });
     });
