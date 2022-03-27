@@ -3,6 +3,7 @@
 /** Grade each subject score */
 function score_grade($v)
 {
+    $v = (int) $v;
     switch (true) {
         case ($v > 79 && $v < 101):
             return array('point' => 12, 'grade' => 'A');
@@ -108,4 +109,46 @@ function mean_points($scores=[])
     $points += array_shift($scores)['point'];
 
     return $points;
+}
+
+/**
+ * sort student scores by mean_points and assign positions
+ */
+function assign_position_by_scores(array $students) 
+{
+    array_multisort(array_column($students, 'mean_points'), SORT_DESC, $students);
+    foreach ($students as $i => $value) {
+        $students[$i]['position'] = $i+1;
+        if ($i > 0) {
+            $prev_points = $students[$i-1]['mean_points'];
+            $prev_pos = $students[$i-1]['position'];
+            if ($prev_points == $value['mean_points']) {
+                $students[$i]['position'] = $prev_pos;
+            }    
+        }
+    }
+    return $students;
+}
+
+/**
+ * sort and group students by stream
+ */
+function group_by_stream(array $students)
+{
+    $n = 0;
+    $stream_groups = array();
+    array_multisort(array_column($students, 'stream_id'), SORT_ASC, $students);
+    foreach ($students as $i => $student) {
+        if ($i == 0) $stream_groups[$i] = array($student);
+        else {
+            $prev_student = $students[$i-1];
+            if ($prev_student['stream_id'] == $student['stream_id']) {
+                $stream_groups[$n][] = $student;
+            } else {
+                $n++;
+                $stream_groups[$n] = array($student);
+            }
+        }
+    }
+    return $stream_groups;
 }
